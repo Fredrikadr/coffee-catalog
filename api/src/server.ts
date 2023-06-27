@@ -1,12 +1,8 @@
 import express from "express";
-import coffeeData from "../../data/CoffeeData.json";
+import app from "./app";
 
-const app = express();
+const port = 5000;
 
-app.get("/coffee-drinks", (req, res) => {
-  res.send(coffeeData);
-});
-
-app.listen(5000, () => {
-  console.log("Server is running on port 5000");
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
