@@ -1,4 +1,4 @@
-interface CoffeeDrink {
+export interface CoffeeDrink {
   id: number;
   name: string;
   category: string;
@@ -9,21 +9,21 @@ interface CoffeeDrink {
   sizes: SizeCode[];
 }
 
-interface Assets {
+export interface Assets {
   thumbnail: Thumbnail;
   fullSize: FullSize;
   masterImage: FullSize;
 }
 
-interface Thumbnail {
+export interface Thumbnail {
   large: FullSize;
 }
 
-interface FullSize {
+export interface FullSize {
   uri: string;
 }
 
-type FormCode =
+export type FormCode =
   | 'Single'
   | 'Hot'
   | 'Iced'
@@ -31,7 +31,7 @@ type FormCode =
   | 'Whole-Bean'
   | 'VIA';
 
-type SizeCode =
+export type SizeCode =
   | 'Small'
   | 'Medium'
   | 'Large'
@@ -55,4 +55,4 @@ type SizeCode =
   | '5-count'
   | '12-count';
 
-type Availability = 'Available';
+export type Availability = 'Available';
