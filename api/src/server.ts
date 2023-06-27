@@ -1,9 +1,10 @@
 import express from "express";
+import coffeeData from "../../data/CoffeeData.json";
 
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("Hello world!");
+app.get("/coffee-drinks", (req, res) => {
+  res.send(coffeeData);
 });
 
 app.listen(5000, () => {
