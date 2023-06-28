@@ -56,3 +56,9 @@ export type SizeCode =
   | '12-count';
 
 export type Availability = 'Available';
+
+
+export interface Error {
+  code: number;
+  message: string;
+}
