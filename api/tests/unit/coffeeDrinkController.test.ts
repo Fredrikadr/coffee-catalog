@@ -7,8 +7,6 @@ jest.mock("../../src/utils/coffeeDataMapper", () => ({
   formatCoffeeData: jest.fn((rawData: any[]) => []),
 }));
 
-
-
 describe("CoffeeDrinkController", () => {
   let coffeeDrinkController: CoffeeDrinkController;
   let req: Request;
@@ -55,6 +53,39 @@ describe("CoffeeDrinkController", () => {
     expect(res.json).toHaveBeenCalledWith({
       code: 404,
       message: "Coffee drink not found",
+    });
+  });
+
+  it("should handle error during listing coffee drinks", () => {
+    // Mocks an error during listing coffee drinks
+    (formatCoffeeData as jest.Mock).mockImplementationOnce(() => {
+      throw new Error("Error during listing coffee drinks");
+    });
+
+    coffeeDrinkController.listAllCoffeeDrinks(req, res);
+
+    expect(formatCoffeeData).toHaveBeenCalledWith(coffeeData);
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith({
+      code: 500,
+      message: "Something went wrong",
+    });
+  });
+
+  it("should handle error when coffee drink is not found", () => {
+    req.params = { id: "123" };
+
+    jest.spyOn(Array.prototype, "find").mockImplementationOnce(() => {
+      throw new Error("Coffee drink not found");
+    });
+
+    coffeeDrinkController.getCoffeeDrinkById(req, res);
+
+    expect(formatCoffeeData).toHaveBeenCalledWith(coffeeData);
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith({
+      code: 500,
+      message: "Something went wrong",
     });
   });
 });

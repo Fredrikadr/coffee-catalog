@@ -110,6 +110,7 @@
   },
   "scripts": {
     "test": "jest",
+    "test:coverage": "jest --coverage",
     "build": "tsc",
     "start": "nodemon --exec ts-node src/server.ts"
   },
