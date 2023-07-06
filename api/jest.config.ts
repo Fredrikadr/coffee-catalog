@@ -1,10 +1,12 @@
-module.exports = [
-  {
-    displayName: "Unit Tests",
-    testMatch: ["<rootDir>/tests/unit/**/*.test.ts"],
+module.exports = {
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  testMatch: ['<rootDir>/tests/**/*.test.ts'],
+  transform: {
+    '^.+\\.tsx?$': 'ts-jest',
   },
-  {
-    displayName: "Integration Tests",
-    testMatch: ["<rootDir>/tests/integration/**/*.test.ts"],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
   },
-];
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+};

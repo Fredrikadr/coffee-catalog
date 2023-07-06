@@ -7,9 +7,7 @@ class CoffeeDrinkController {
   public listAllCoffeeDrinks(req: Request, res: Response): void {
     try {
       const coffeeDrinks: CoffeeDrink[] = formatCoffeeData(coffeeData);
-        
 
-      console.log(coffeeData)
       res.status(200).json(coffeeDrinks);
 
     } catch (error) {
