@@ -1,10 +1,15 @@
+import CoffeeCatalog from './components/CoffeeCatalog.tsx'
 import './styles.scss'
 
 function App() {
 
   return (
     <>
-<div>hello</div>
+      <div id="glow-container">
+      <div id="glow-effect"></div>
+
+      </div>
+      <CoffeeCatalog/>
     </>
   )
 }
