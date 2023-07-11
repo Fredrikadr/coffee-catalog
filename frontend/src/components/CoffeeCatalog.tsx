@@ -1,5 +1,7 @@
 import { Component } from "react";
 import { CoffeeDrink } from "../models/CoffeeDrink.ts";
+import CoffeeCard from "./CoffeeCard.tsx";
+import Searchbar from "./Searchbar.tsx";
 
 
 
@@ -31,13 +33,13 @@ class CoffeeCatalog extends Component<{}, CatalogState> {
 
       console.log(data)
 
-      this.setState({loading: false, products: data})
+      this.setState({ loading: false, products: data })
     } catch (error: any) {
       this.setState({ error: error.message, })
       console.log(error)
     }
 
-    return 
+    return
   }
 
   componentDidMount() {
@@ -48,23 +50,28 @@ class CoffeeCatalog extends Component<{}, CatalogState> {
   render() {
     const { products, loading, error } = this.state;
 
+    
+    if (error) {
+      return <div>Error: {error}</div>
+    }
     if (loading) {
       return <div>Loading...</div>
     }
 
-    if (error) {
-      return <div>Error: {error}</div>
-    }
-
     return (
-      <div>
+      <>
+        <div className="top-container">
+          <h1>Find the best<br></br> <span>Coffee</span> for you</h1>
+        <Searchbar/>
+        </div>
+        
+      <div className="grid-container">
         {products.map(coffeeDrink => (
-          <div key={coffeeDrink.id}>
-            <h3>{coffeeDrink.name}</h3>
-            <p>{coffeeDrink.category}</p>
-          </div>
+          <CoffeeCard key={coffeeDrink.id} drink={coffeeDrink} />
         ))}
       </div>
+      
+      </>
     )
   }
 }
