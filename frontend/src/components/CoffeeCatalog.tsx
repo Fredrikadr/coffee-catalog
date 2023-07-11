@@ -9,6 +9,7 @@ interface CatalogState {
   products: CoffeeDrink[];
   loading: boolean;
   error: string | null;
+  searchTerm: string;
 }
 
 class CoffeeCatalog extends Component<{}, CatalogState> {
@@ -17,7 +18,8 @@ class CoffeeCatalog extends Component<{}, CatalogState> {
     this.state = {
       products: [],
       loading: true,
-      error: null
+      error: null,
+      searchTerm: ""
     };
 
   }
@@ -42,15 +44,19 @@ class CoffeeCatalog extends Component<{}, CatalogState> {
     return
   }
 
+  handleInputChange = (searchTerm: string) => {
+    this.setState({ searchTerm });
+  };
+
   componentDidMount() {
     this.fetchData();
     console.log("Component did mount")
   }
 
   render() {
-    const { products, loading, error } = this.state;
+    const { products, loading, error, searchTerm } = this.state;
 
-    
+
     if (error) {
       return <div>Error: {error}</div>
     }
@@ -58,19 +64,25 @@ class CoffeeCatalog extends Component<{}, CatalogState> {
       return <div>Loading...</div>
     }
 
+    const filteredProducts = searchTerm
+      ? products.filter((product) =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+      : products;
+
     return (
       <>
         <div className="top-container">
           <h1>Find the best<br></br> <span>Coffee</span> for you</h1>
-        <Searchbar/>
+          <Searchbar onSearchTermChange={this.handleInputChange} />
         </div>
-        
-      <div className="grid-container">
-        {products.map(coffeeDrink => (
-          <CoffeeCard key={coffeeDrink.id} drink={coffeeDrink} />
-        ))}
-      </div>
-      
+
+        <div className="grid-container">
+          {filteredProducts.map(coffeeDrink => (
+            <CoffeeCard key={coffeeDrink.id} drink={coffeeDrink} />
+          ))}
+        </div>
+
       </>
     )
   }
