@@ -1,5 +1,5 @@
 import { Component } from "react";
-import searchIcon from "../assets/icons/search.svg"
+import searchIcon from "../assets/icons/search.svg";
 
 interface SearchbarProps {
   onSearchTermChange: (searchTerm: string) => void;
