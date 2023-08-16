@@ -23,7 +23,8 @@ class CoffeeCatalog extends Component<{}, CatalogState> {
     };
 
   }
-
+  
+//Fetch coffee data
   async fetchData() {
     try {
       this.setState({
@@ -64,12 +65,19 @@ class CoffeeCatalog extends Component<{}, CatalogState> {
       return <div>Loading...</div>
     }
 
+    //Filter products by search term
     const filteredProducts = searchTerm
       ? products.filter((product) =>
         product.name.toLowerCase().includes(searchTerm.toLowerCase())
       )
       : products;
 
+    //Filter products by display order
+    const sortedProducts = filteredProducts.sort((a, b) =>
+      a.displayOrder - b.displayOrder
+    );
+
+    
     return (
       <>
         <div className="top-container">
@@ -78,9 +86,13 @@ class CoffeeCatalog extends Component<{}, CatalogState> {
         </div>
 
         <div className="grid-container">
-          {filteredProducts.map(coffeeDrink => (
-            <CoffeeCard key={coffeeDrink.id} drink={coffeeDrink} />
-          ))}
+          {sortedProducts.length > 0 ? (sortedProducts.map(coffeeDrink => (
+            <CoffeeCard key={coffeeDrink.id} drink={coffeeDrink} />)
+          ))
+            
+            : (<div>No results found</div>)
+
+          }
         </div>
 
       </>
